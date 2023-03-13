@@ -1,0 +1,21 @@
+{
+    "Products": [
+        {% for catalog in catalogs -%}
+        {
+            "Product id": {{ catalog.id }},
+            "Product name": {{ catalog.name }},
+            "In_warehouse": [
+                {% for product in catalog.products -%}
+                {
+                    "Series": {{ product.series }},
+                    "Quantity": {{ product.quantity }},
+                    "Exp_date": {{ product.expDate|date("d/m/Y") }}
+                }
+                {%- if not loop.last %},{% endif %}
+                {%- endfor %}
+            ]
+        }
+        {%- if not loop.last %},{% endif %}
+        {%- endfor %}
+    ]
+}

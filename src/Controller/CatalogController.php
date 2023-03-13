@@ -90,4 +90,13 @@ class CatalogController extends AbstractController
         ]);
     }
 
+    #[Route('/api/whole', name: 'app_catalog_api_whole')]
+    public function whole(Request $request, CatalogRepository $catalogRepository): Response
+    {
+        $catalog_products = $catalogRepository->findAll();
+        return $this->render("catalog/api_whole.json.twig",[
+            'catalogs' =>$catalog_products,
+        ]);
+    }
+
 }
