@@ -1,0 +1,13 @@
+{
+    "Request Product": {{ request_prod }},
+    "Request Quantity": {{ request_quant }},
+    "Products": [
+        {% for product in products -%}
+        {
+            "Product series": {{ product['series'] }},
+            "Product name": {{ product['exp_date'] }},
+        }
+        {%- if not loop.last %},{% endif %}
+        {%- endfor %}
+    ]
+}

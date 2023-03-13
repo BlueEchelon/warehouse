@@ -99,4 +99,31 @@ class CatalogController extends AbstractController
         ]);
     }
 
+    #[Route('/api/take', name: 'app_catalog_api_take')]
+    public function take(Request $request, CatalogRepository $catalogRepository): Response
+    {
+        $payload = $request->toArray();
+        //JSON / POST
+        //{
+        //    "name": "name_of_product",
+        //    "quantity": number
+        //}
+        $catalog_products=$catalogRepository->findOneBy(['name'=>$payload['name']]);
+        $products=$catalog_products->getProducts();
+        $productArray=[];
+        foreach ($products as $product){
+            if ($product->getQuantity()>=$payload['quantity']){
+                $productArray[$product->getId()]=[
+                    'series' => $product->getSeries(),
+                    'exp_date' => $product->getExpDate()->format('d-m-Y'),
+                ];
+            }
+        }
+        return $this->render("catalog/api_take.json.twig",[
+            'products' =>$productArray,
+            'request_prod'=>$payload['name'],
+            'request_quant'=>$payload['quantity'],
+        ]);
+    }
+
 }
