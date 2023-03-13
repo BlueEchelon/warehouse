@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
                 <th>Quantity</th>
                 <th>Exp_date</th>
                 <th>Series</th>
@@ -20,7 +19,6 @@
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.expDate ? product.expDate|date('Y-m-d') : '' }}</td>
                 <td>{{ product.series }}</td>

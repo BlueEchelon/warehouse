@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Catalog;
 use App\Form\CatalogType;
 use App\Repository\CatalogRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,10 +42,12 @@ class CatalogController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_catalog_show', methods: ['GET'])]
-    public function show(Catalog $catalog): Response
+    public function show(Catalog $catalog, ProductRepository $productRepository): Response
     {
+        $products=$catalog->getProducts();
         return $this->render('catalog/show.html.twig', [
             'catalog' => $catalog,
+            'products'=>$products,
         ]);
     }
 
