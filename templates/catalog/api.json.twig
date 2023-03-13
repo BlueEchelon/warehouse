@@ -1,0 +1,10 @@
+{
+"Catalog Products": [
+{% for catalog in catalogs -%}
+    {
+    "name": {{ catalog.name }},
+    }
+    {%- if not loop.last %},{% endif %}
+{%- endfor %}
+]
+}

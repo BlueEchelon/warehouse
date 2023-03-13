@@ -78,4 +78,16 @@ class CatalogController extends AbstractController
 
         return $this->redirectToRoute('app_catalog_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/api/api', name: 'app_catalog_api')]
+    public function api(Request $request, CatalogRepository $catalogRepository): Response
+    {
+//        $payload = $request->toArray();
+
+        $catalog_products = $catalogRepository->findAll();
+        return $this->render("catalog/api.json.twig",[
+            'catalogs' =>$catalog_products,
+        ]);
+    }
+
 }

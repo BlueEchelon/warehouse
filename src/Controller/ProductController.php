@@ -72,13 +72,13 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
+    #[Route('/{id}/{id_catalog}', name: 'app_product_delete', methods: ['POST'])]
+    public function delete(Request $request, Product $product, ProductRepository $productRepository, $id_catalog): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
         }
 
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_catalog_show', ['id'=>$id_catalog], Response::HTTP_SEE_OTHER);
     }
 }

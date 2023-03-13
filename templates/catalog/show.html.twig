@@ -24,12 +24,14 @@
                 <th>Series</th>
                 <th>Quantity</th>
                 <th>Exp_Date</th>
+                <th>Delete</th>
             </tr>
             {% for product in products %}
                 <tr>
                     <td>{{ product.series }}</td>
                     <td>{{ product.quantity }}</td>
                     <td>{{ product.expDate|date("d/m/Y") }}</td>
+                    <td>{{ include('product/_delete_form.html.twig', {'id':product.id,'id_catalog':catalog.id}) }}</td>
                 </tr>
             {% endfor %}
         </tbody>
